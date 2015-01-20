@@ -1,2 +1,1 @@
-# enocean-co-wr-idbase
-Function: Write ID range base number.
+See https://www.enocean.com/esp, 1.10.9 Code 07: CO_WR_IDBASE

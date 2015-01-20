@@ -1,0 +1,14 @@
+{
+  "name": "enocean-co-wr-idbase",
+  "version": "1.0.0",
+  "description": "See https://www.enocean.com/esp, 1.10.9 Code 07: CO_WR_IDBASE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/houmio/enocean-co-wr-idbase.git"
+  },
+  "license": "MIT"
+}

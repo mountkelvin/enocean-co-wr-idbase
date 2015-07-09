@@ -13,7 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "coffee-script": "^1.8.0",
+    "crc": "^2.1.1",
     "serialport": "^1.7.4"
-  },
-  "bin": "wr"
+  }
 }

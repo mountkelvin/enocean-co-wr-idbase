@@ -1,0 +1,41 @@
+#!/usr/bin/env coffee
+
+serialport = require 'serialport'
+crc = require 'crc'
+
+# EnOcean functions
+
+split2 = (s) -> s.match(/.{1,2}/g)
+
+toByteArray = (s) -> (split2 s).map (i) -> parseInt(i, 16)
+
+crcOf = (bytes) -> parseInt crc.crc8(bytes), 16
+
+enoceanBytes = (header, data) ->
+  SYNC = 0x55
+  [SYNC].concat(header).concat(crcOf(header)).concat(data).concat(crcOf(data))
+
+setSubDefBase = (subDefBase) ->
+  PT_COMMON_COMMAND = 0x05
+  CO_WD_ID_BASE = 0x07
+  header = [0x00, 0x05, 0x00, PT_COMMON_COMMAND]
+  data = [CO_WD_ID_BASE].concat toByteArray subDefBase
+  enoceanBytes header, data
+
+# Calculation and write of subDefBase
+
+enoceanDeviceFile = process.argv[2]
+subDefBase = process.argv[3]
+
+unless enoceanDeviceFile and subDefBase
+  console.log "Usage: enocean-co-wr-idbase <device-file> <enocean-subdef-base>"
+  process.exit 1
+
+enoceanSerialConfig = { baudrate: 57600, parser: serialport.parsers.raw }
+enoceanSerial = new serialport.SerialPort enoceanDeviceFile, enoceanSerialConfig, true
+
+bytes = setSubDefBase subDefBase
+
+serial.write bytes, () ->
+  console.log "Wrote new subdef base id"
+  process.exit 0

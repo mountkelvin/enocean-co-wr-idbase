@@ -36,6 +36,7 @@ enoceanSerial = new serialport.SerialPort enoceanDeviceFile, enoceanSerialConfig
 
 bytes = setSubDefBase subDefBase
 
-enoceanSerial.write bytes, () ->
-  console.log "Wrote new subdef base id"
-  process.exit 0
+enoceanSerial.on 'open', () ->
+  enoceanSerial.write bytes, () ->
+    console.log "Wrote new subdef base id"
+    process.exit 0
